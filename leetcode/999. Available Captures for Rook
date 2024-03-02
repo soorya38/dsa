@@ -1,0 +1,68 @@
+999. Available Captures for Rook
+
+On an 8 x 8 chessboard, there is exactly one white rook 'R' and some number of white bishops 'B', black pawns 'p', and empty squares '.'.
+
+When the rook moves, it chooses one of four cardinal directions (north, east, south, or west), then moves in that direction until it chooses to stop, reaches the edge of the board, captures a black pawn, or is blocked by a white bishop. A rook is considered attacking a pawn if the rook can capture the pawn on the rook's turn. The number of available captures for the white rook is the number of pawns that the rook is attacking.
+
+Return the number of available captures for the white rook.
+
+Input: board = [[".",".",".",".",".",".",".","."],[".",".",".","p",".",".",".","."],[".",".",".","R",".",".",".","p"],[".",".",".",".",".",".",".","."],[".",".",".",".",".",".",".","."],[".",".",".","p",".",".",".","."],[".",".",".",".",".",".",".","."],[".",".",".",".",".",".",".","."]]
+Output: 3
+Explanation: In this example, the rook is attacking all the pawns.
+
+Input: board = [[".",".",".",".",".",".",".","."],[".","p","p","p","p","p",".","."],[".","p","p","B","p","p",".","."],[".","p","B","R","B","p",".","."],[".","p","p","B","p","p",".","."],[".","p","p","p","p","p",".","."],[".",".",".",".",".",".",".","."],[".",".",".",".",".",".",".","."]]
+Output: 0
+Explanation: The bishops are blocking the rook from attacking any of the pawns.
+
+Input: board = [[".",".",".",".",".",".",".","."],[".",".",".","p",".",".",".","."],[".",".",".","p",".",".",".","."],["p","p",".","R",".","p","B","."],[".",".",".",".",".",".",".","."],[".",".",".","B",".",".",".","."],[".",".",".","p",".",".",".","."],[".",".",".",".",".",".",".","."]]
+Output: 3
+Explanation: The rook is attacking the pawns at positions b5, d6, and f5.
+
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& nums) {
+        int count = 0;
+        vector<pair<int, int>> pos;
+        for(int i=0; i<nums.size(); i++)
+            for(int j=0; j<nums[i].size(); j++)
+                if(nums[i][j] == 'R') {
+                    pos.push_back({i, j});
+                    break;
+                }
+        
+        for(int i=0; i<pos.size(); i++) {
+            int v = pos[i].first;
+            int v1 = pos[i].second;
+            for(int j=v1; j<nums.size(); j++) 
+                if(nums[v][j] == 'B') {
+                    break;
+                } else if(nums[v][j] == 'p') {
+                    count++;
+                    break;
+                }
+            for(int j=v1; j>=0; j--)
+                if(nums[v][j] == 'B')
+                    break;
+                else if(nums[v][j] == 'p') {
+                    count++;
+                    break;
+                }
+            for(int j=v; j<nums.size(); j++)
+                if(nums[j][v1] == 'B')
+                    break;
+                else if(nums[j][v1] == 'p') {
+                    count++;
+                    break;
+                }
+            for(int j=v; j>=0; j--)
+                if(nums[j][v1] == 'B')
+                    break;
+                else if(nums[j][v1] == 'p') {
+                    count++;
+                    break;
+                }
+        }
+
+        return count;
+    }
+};
