@@ -1,0 +1,53 @@
+436. Find Right Interval
+
+You are given an array of intervals, where intervals[i] = [starti, endi] and each starti is unique.
+
+The right interval for an interval i is an interval j such that startj >= endi and startj is minimized. Note that i may equal j.
+
+Return an array of right interval indices for each interval i. If no right interval exists for interval i, then put -1 at index i.
+
+Input: intervals = [[1,2]]
+Output: [-1]
+Explanation: There is only one interval in the collection, so it outputs -1.
+
+Input: intervals = [[3,4],[2,3],[1,2]]
+Output: [-1,0,1]
+Explanation: There is no right interval for [3,4].
+The right interval for [2,3] is [3,4] since start0 = 3 is the smallest start that is >= end1 = 3.
+The right interval for [1,2] is [2,3] since start1 = 2 is the smallest start that is >= end2 = 2.
+
+Input: intervals = [[1,4],[2,3],[3,4]]
+Output: [-1,2,-1]
+Explanation: There is no right interval for [1,4] and [3,4].
+The right interval for [2,3] is [3,4] since start2 = 3 is the smallest start that is >= end1 = 3.
+
+class Solution {
+public:
+    vector<int> findRightInterval(vector<vector<int>>& nums) {
+        int n = nums.size()-1;
+        unordered_map<int, int> m;
+        vector<vector<int>> v;
+        vector<int> sss;
+        for(int i=0; i<n+1; i++) {
+            v.push_back({nums[i][0], nums[i][1]});
+            m[nums[i][0]] = i;
+        }
+        sort(v.begin(), v.end());
+        for(int i=0; i<n+1; i++) {
+            int e = nums[i][1];
+            int s=0, t=n, ans=-1;
+            while(s <= t) {
+                int mid = s + (t-s) / 2;
+                if(v[mid][0] >= e) {
+                    ans = m[v[mid][0]];
+                    t = mid - 1;
+                }    
+                else
+                    s = mid + 1;
+            }
+            sss.push_back(ans);
+        }
+
+        return sss;
+    }
+};
