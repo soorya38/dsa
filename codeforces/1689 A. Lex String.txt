@@ -1,0 +1,122 @@
+A. Lex String
+
+Kuznecov likes art, poetry, and music. And strings consisting of lowercase English letters.
+
+Recently, Kuznecov has found two strings, a
+ and b
+, of lengths n
+ and m
+ respectively. They consist of lowercase English letters and no character is contained in both strings.
+
+Let another string c
+ be initially empty. Kuznecov can do the following two types of operations:
+
+Choose any character from the string a
+, remove it from a
+, and add it to the end of c
+.
+Choose any character from the string b
+, remove it from b
+, and add it to the end of c
+.
+But, he can not do more than k
+ operations of the same type in a row. He must perform operations until either a
+ or b
+ becomes empty. What is the lexicographically smallest possible value of c
+ after he finishes?
+
+A string x
+ is lexicographically smaller than a string y
+ if and only if one of the following holds:
+
+x
+ is a prefix of y
+, but x≠y
+;
+in the first position where x
+ and y
+ differ, the string x
+ has a letter that appears earlier in the alphabet than the corresponding letter in y
+.
+Input
+There are several test cases in the input data. The first line contains a single integer t
+ (1≤t≤100
+) — the number of test cases. This is followed by the test cases description.
+
+The first line of each test case contains three integers n
+, m
+, and k
+ (1≤n,m,k≤100
+) — parameters from the statement.
+
+The second line of each test case contains the string a
+ of length n
+.
+
+The third line of each test case contains the string b
+ of length m
+.
+
+The strings contain only lowercase English letters. It is guaranteed that no symbol appears in a
+ and b
+ simultaneously.
+
+Output
+In each test case, output a single string c
+ — the answer to the problem.
+
+Input
+3
+6 4 2
+aaaaaa
+bbbb
+5 9 3
+caaca
+bedededeb
+7 7 1
+noskill
+wxhtzdy
+
+
+Output
+aabaabaa
+aaabbcc
+dihktlwlxnyoz
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void sol() {
+    int n = 7, n1 = 7 , k = 1;
+    cin >> n >> n1 >> k;
+    string sen, sen1;
+    cin >> sen >> sen1;
+    
+    sort(sen.begin(), sen.end());
+    sort(sen1.begin(), sen1.end());
+    int i = 0, j = 0, a = k, b = k;
+    // cout << sen << "\n" << sen1 << "\n";
+    while(i < sen.size() && j<sen1.size()) {
+        if((sen[i] < sen1[j] && a != 0) || b == 0) {
+            cout << sen[i];
+            b = k;
+            a--;
+            i++;
+        } else if((sen[i] > sen1[j] && b != 0 ) || a == 0){
+            a = k; 
+            cout << sen1[j];
+            b--;
+            j++;
+        }
+    }
+    cout << '\n';
+}
+
+int main() {
+    int tc;
+    cin >> tc;
+    // tc = 1;
+    while(tc--)
+        sol();
+    return 0;
+}
