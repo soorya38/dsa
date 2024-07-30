@@ -1,0 +1,123 @@
+Level of Nodes
+Difficulty: MediumAccuracy: 50.95%Submissions: 56K+Points: 4
+Given an integer x and an undirected acyclic graph with v nodes, labeled from 0 to v-1, and e edges, return the level of node labeled as x.
+
+Level is the minimum number of edges you must travel from the node 0 to some target.
+
+If there doesn't exists such a node that is labeled as x, return -1.
+
+Examples :
+
+Input: x = 4
+
+
+Output: 2
+Explanation:
+
+We can clearly see that Node 4 lies at Level 2.
+Input: x = 1
+
+
+Output: 1
+Explanation: Node 1 lies at level 1, immediate after Node 0.
+Expected Time Complexity: O(v)
+Expected Auxiliary Space: O(v)
+
+Constraints:
+2 ≤ v ≤ 104
+1 ≤ e ≤ 104
+0 ≤ adji, j < v
+1 ≤ x < v
+
+Note : Graph doesn't contain multiple edges and self loops.
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+
+class Solution
+{
+	public:
+	
+	class Graph {
+	public:
+	    map<int, vector<int>> g;
+	    
+	    void add(int n, int e) {
+	        g[n].push_back(e);
+	        g[e].push_back(n);
+	    }
+	    
+	    int bfs(int src, int dest) {
+	        queue<pair<int, int>> q;
+	        set<int> visited;
+	        q.push({src, 0});
+	        
+	        while(q.size() > 0)
+	        {
+	            pair<int, int> n = q.front();
+	            q.pop();
+	            
+	            if(visited.find(n.first) != visited.end())
+	                continue;
+
+                if(n.first == dest)
+                    return n.second;
+	           visited.insert(n.first);
+	           
+	           for(int i=0; i<g[n.first].size(); i++)
+	            if(visited.find(g[n.first][i]) == visited.end())
+	                q.push({g[n.first][i], n.second+1});
+	        }
+	        return -1;
+	    }
+	};
+	//Function to find the level of node X.
+	int nodeLevel(int V, vector<int> adj[], int x) 
+	{
+	    // code here
+	    Graph g;
+	    for(int i=0; i<V; i++)
+	        for(int j=0; j<adj[i].size(); j++)
+	            g.add(i, adj[i][j]);
+	    return g.bfs(0, x);
+	}
+};
+
+//{ Driver Code Starts.
+
+
+int main()
+{
+    
+    int t;
+    cin >> t;
+    while(t--)
+    {
+    	int V, E, X;
+    	cin >> V >> E;
+
+    	vector<int> adj[V];
+
+    	for(int i = 0; i < E; i++)
+    	{
+    		int u, v;
+    		cin >> u >> v;
+    		adj[u].push_back(v);
+    		adj[v].push_back(u);
+    	}
+    	cin>>X;
+
+    	Solution obj;
+    	cout << obj.nodeLevel(V, adj, X) << "\n";
+    }
+
+    return 0;
+}
+
+
+// } Driver Code Ends

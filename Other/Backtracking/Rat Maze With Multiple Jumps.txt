@@ -1,0 +1,112 @@
+Rat Maze With Multiple Jumps
+Difficulty: MediumAccuracy: 38.46%Submissions: 15K+Points: 4
+A Maze is given as n*n matrix of blocks where source block is the upper left most block i.e., matrix[0][0] and destination block is lower rightmost block i.e., matrix[n-1][n-1]. A rat starts from source and has to reach the destination. The rat can move in only two directions: first forward if possible or down. If multiple solutions exist, the shortest earliest hop will be accepted. For the same hop distance at any point, forward will be preferred over downward. In the maze matrix, 0 means the block is the dead end and non-zero number means the block can be used in the path from source to destination. The non-zero value of mat[i][j] indicates number of maximum jumps rat can make from cell mat[i][j]. In this variation, Rat is allowed to jump multiple steps at a time instead of 1. Find a matrix which describes the position the rat to reach at the destination.
+ 
+
+Example:
+
+Input: {{2,1,0,0},{3,0,0,1},{0,1,0,1},
+{0,0,0,1}}
+Output: {{1,0,0,0},{1,0,0,1},{0,0,0,1},
+{0,0,0,1}}
+Explanation: Rat started with matrix[0][0] and 
+can jump up to 2 steps right/down. First check 
+matrix[0][1] as it is 1, next check 
+matrix[0][2] ,this won't lead to the solution. 
+Then check matrix[1][0], as this is 3(non-zero)
+,so we can make 3 jumps to reach matrix[1][3]. 
+From matrix[1][3] we can move downwards taking 
+1 jump each time to reach destination at 
+matrix[3][3].
+Example 2:
+
+Input: {{2,1,0,0},{2,0,0,1},{0,1,0,1},
+{0,0,0,1}}
+Output: {{-1}}
+Explanation: As no path exists so, -1.
+ 
+
+Your Task:
+You don't need to read or print anyhting, Your task is to complete the function ShortestDistance() which takes the matrix as input parameter and returns a matrix of size n if path exists otherwise returns a matrix of 1x1 which contains -1. In output matrix, 1 at (i, j) represents the cell is taken into the path otherwise 0 if any path exists.
+ 
+
+Expected Time Complexity: O(n*n*k) where k is max(matrix[i][j])
+Expected Space Complexity: O(1)
+ 
+
+Constraints:
+1 <= n <= 50
+1 <= matrix[i][j] <= 20
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+public:
+    bool func(vector<vector<int>> nums, int x, int y, vector<vector<int>>& sol) {
+        if(x == nums.size()-1 && y == nums.size()-1) {
+            sol[x][y] = 1;
+            // for(int i=0; i<sol.size(); i++) {
+            //     for(int j=0; j<sol.size(); j++)
+            //         cout << sol[i][j] << " ";
+            //     cout << "\n";
+            // }
+            // cout << "\n";
+            // sol[x][y] = 0;
+            return true;
+        }
+        
+        for(int i=1; i<=nums[x][y]; i++)
+                {
+                    sol[x][y] = 1;
+                    if(y+i < nums.size())
+                        if(func(nums, x, y+i, sol))
+                            return true;
+                    if(x+i < nums.size())
+                        if(func(nums, x+i, y, sol))
+                            return true;
+                    sol[x][y] = 0;
+                }
+        
+        return false;
+    }
+
+	vector<vector<int>> ShortestDistance(vector<vector<int>> &matrix){
+	   // Code here
+	   vector<vector<int>> sol(matrix.size(), vector<int>(matrix.size()));;
+	   if(func(matrix, 0, 0, sol))
+	        return sol;
+	   return {{-1}};
+	}
+
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		vector<vector<int>>matrix(n, vector<int>(n,0));
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				cin >> matrix[i][j];
+			}
+		}
+		Solution obj;
+		vector<vector<int>> ans = obj.ShortestDistance(matrix);
+		for(auto i: ans){
+			for(auto j: i){
+				cout << j << " ";
+			}
+			cout << "\n";
+		}
+	}
+	return 0;
+}
+// } Driver Code Ends

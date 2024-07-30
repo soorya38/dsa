@@ -1,0 +1,130 @@
+BFS of graph
+Difficulty: EasyAccuracy: 44.09%Submissions: 390K+Points: 2
+Given a directed graph. The task is to do Breadth First Traversal of this graph starting from 0.
+Note: One can move from node u to node v only if there's an edge from u to v. Find the BFS traversal of the graph starting from the 0th vertex, from left to right according to the input graph. Also, you should only take nodes directly or indirectly connected from Node 0 in consideration.
+
+
+Example 1:
+
+Input:
+V = 5, E = 4
+adj = {{1,2,3},{},{4},{},{}}
+
+
+Output: 
+0 1 2 3 4
+Explanation: 
+0 is connected to 1 , 2 , 3.
+2 is connected to 4.
+so starting from 0, it will go to 1 then 2
+then 3. After this 2 to 4, thus bfs will be
+0 1 2 3 4.
+Example 2:
+
+Input:
+V = 3, E = 2
+adj = {{1,2},{},{}}
+
+Output: 
+0 1 2
+Explanation:
+0 is connected to 1 , 2.
+so starting from 0, it will go to 1 then 2,
+thus bfs will be 0 1 2. 
+
+Your task:
+You dont need to read input or print anything. Your task is to complete the function bfsOfGraph() which takes the integer V denoting the number of vertices and adjacency list as input parameters and returns  a list containing the BFS traversal of the graph starting from the 0th vertex from left to right.
+
+
+Expected Time Complexity: O(V + E)
+Expected Auxiliary Space: O(V)
+
+
+Constraints:
+1 ≤ V, E ≤ 104
+
+solution :
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+  public:
+    class Graph {
+    public:
+        map<int, vector<int>> g;
+        
+        void add(int n, int e) {
+            g[n].push_back(e);
+        }
+        
+        void bfs(int s, vector<int>& result) {
+            queue<int> q;
+            set<int> visited;
+            q.push(s);
+            
+            while(!q.empty())
+            {
+                int v = q.front();
+                q.pop();
+                
+                if(visited.find(v) != visited.end())
+                    continue;
+                
+                visited.insert(v);
+                result.push_back(v);
+                
+                for(int i = 0; i < g[v].size(); i++) {
+                    if(visited.find(g[v][i]) == visited.end())
+                        q.push(g[v][i]);
+                }
+            }
+        }
+    };
+  
+    // Function to return Breadth First Traversal of given graph.
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> ans;
+        Graph g;
+        for(int i = 0; i < V; i++) {
+            for(int j = 0; j < adj[i].size(); j++)
+                g.add(i, adj[i][j]);
+        }
+        // Starting BFS from node 0 (assuming the graph is connected and 0 is always present)
+        g.bfs(0, ans);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >>
+
+            E;
+
+        vector<int> adj[V];
+
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            // 		adj[v].push_back(u);
+        }
+        // string s1;
+        // cin>>s1;
+        Solution obj;
+        vector<int> ans = obj.bfsOfGraph(V, adj);
+        for (int i = 0; i < ans.size(); i++) {
+            cout << ans[i] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends

@@ -1,0 +1,16 @@
+classes -> states(properties) + methods(set and alter the states) = blueprints(templates of objects)
+    ->this keyword is used for getting the instance with respect to the class
+    constructors: 
+        -> default
+        -> parameters
+        -> copy constructor
+        -> parameters less
+
+objects -> instances of classes
+
+encapsulation -> combining data and methods using them as a single unit + protecting data from unauthorised access and modification
+    -> using access modifiers to protect data
+        ->private
+        ->public
+        ->protected
+    -> providing constrains while setting values using the setter method

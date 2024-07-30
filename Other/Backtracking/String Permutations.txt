@@ -1,0 +1,86 @@
+String Permutations
+Difficulty: HardAccuracy: 48.33%Submissions: 60K+Points: 8
+Given a string S. The task is to find all permutations (need not be different) of a given string.
+
+Note: return the permutations in lexicographically increasing order.
+
+Example 1:
+
+Input:
+S = AAA
+Output: AAA AAA AAA AAA AAA AAA
+Explanation: There are total 6 permutations, as given in the output.
+Example 2:
+
+Input:
+S = ABSG
+Output: ABGS ABSG AGBS AGSB ASBG ASGB
+BAGS BASG BGAS BGSA BSAG BSGA GABS
+GASB GBAS GBSA GSAB GSBA SABG SAGB
+SBAG SBGA SGAB SGBA
+Explanation: There are total 24 permutations, as given in the output.
+Your Task:
+This is a function problem. You only need to complete the function permutation that takes S as parameter and returns the list of permutations in lexicographically increasing order. The newline is automatically added by driver code.
+
+Constraints:
+1 ≤ size of string ≤ 5
+
+Expected Time Complexity: O(N * N!), N = length of string.
+Expected Auxiliary Space: O(N!)
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+    public:
+    //Complete this function
+    bool func(string sen, int l, int r, vector<string> &sol) {
+        if(l == r) {
+            sol.push_back(sen);
+            return false;
+        }
+        
+        for(int i=l; i<=r; i++) {
+            swap(sen[l], sen[i]);
+            if(func(sen, l+1, r, sol))
+                return true;
+            swap(sen[l], sen[i]);
+        }
+        return false;
+    }
+    
+    vector<string> permutation(string S)
+    {
+        //Your code here
+        vector<string> ans;
+        if(!func(S, 0, S.size()-1, ans))
+            sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+{
+	int T;
+	cin>>T;
+	while(T--)
+	{
+		string S;
+		cin>>S;
+		Solution ob;
+		vector<string> vec = ob.permutation(S);
+		for(string s : vec){
+		    cout<<s<<" ";
+		}
+		cout<<endl;
+	
+	}
+	return 0;
+}
+// } Driver Code Ends
