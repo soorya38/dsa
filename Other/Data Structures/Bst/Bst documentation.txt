@@ -1,0 +1,7 @@
+BST
+	-oprations
+	-LCA
+	-building from sorted array to a balanced tree
+	-dfs
+	-bfs
+	-in, post, pre orders

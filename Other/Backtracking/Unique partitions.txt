@@ -1,0 +1,86 @@
+Unique partitions
+Difficulty: MediumAccuracy: 63.11%Submissions: 14K+Points: 4
+Given a positive integer n, generate all possible unique ways to represent n as sum of positive integers.
+
+Note: The generated output is printed without partitions. Each partition must be in decreasing order. Printing of all the partitions is done in reverse sorted order. 
+
+Example 1:
+
+Input: n = 3
+Output: 3 2 1 1 1 1
+Explanation: For n = 3, 
+{3}, {2, 1} and {1, 1, 1}.
+ 
+
+Example 2:
+
+Input: n = 4 
+Output: 4 3 1 2 2 2 1 1 1 1 1 1
+Explanation: For n = 4, 
+{4}, {3, 1}, {2, 2}, {2, 1, 1}, {1, 1, 1, 1}.
+
+Your Task:
+You don't need to read or print anything. Your task is to complete the function UniquePartitions() which takes n as input parameter and returns a list of all possible combinations in lexicographically decreasing order. 
+ 
+
+Expected Time Complexity: O(2n)
+Expected Space Complexity: O(2n)
+
+ 
+
+Constraints:
+1 <= n <= 25
+
+solution :
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    void func(vector<int> nums, int sum, int target, int c, vector<int>& subset,vector<vector<int>> &ans) {
+        if(c >= nums.size() || sum > target)
+            return;
+        if(sum == target) {
+            ans.push_back(subset);
+            return ;
+        }
+        
+        subset.push_back(nums[c]);
+        func(nums, sum+nums[c], target, c ,subset, ans);
+        subset.pop_back();
+        func(nums, sum, target, c+1, subset, ans);
+    }
+  
+    vector<vector<int>> UniquePartitions(int n) {
+        // Code here
+        vector<vector<int>> ans;
+        vector<int> nums, subset;
+        for(int i=n; i>=1; i--)
+            nums.push_back(i);
+        func(nums, 0, n, 0, subset, ans);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int n;
+        cin >> n;
+        Solution ob;
+        vector<vector<int>> ans = ob.UniquePartitions(n);
+        for (auto i : ans)
+            for (auto j : i)
+                cout << j << " ";
+        cout << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
