@@ -1,0 +1,117 @@
+Construct BST from Postorder
+Difficulty: EasyAccuracy: 59.66%Submissions: 14K+Points: 2
+Given postorder traversal of a Binary Search Tree, you need to construct a BST from postorder traversal. The output will be inorder traversal of the constructed BST.
+
+Example 1:
+
+Input:
+6
+1 7 5 50 40 10
+
+Output:
+1 5 7 10 40 50
+
+Explanation:
+Testcase 1: The BST for the given post order traversal is:
+
+
+Thus the inorder traversal of BST is: 1 5 7 10 40 50.
+Your Task:
+The task is to complete the function constructTree() which takes an array post[], size as as the argument and returns the root of BST.
+
+Expected Time Complexity: O(No. of  nodes in BST)
+Expected Auxiliary Space: O(No. of  nodes in BST)
+
+Constraints:
+1 <= T <= 100
+1 <= N <= 200
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+	int data;
+	struct Node *left;
+	struct Node *right;
+	
+	Node(int x){
+	    data = x;
+	    left = NULL;
+	    right = NULL;
+	}
+};
+
+Node *constructTree (int [], int );
+
+void printInorder (Node* node)
+{
+	if (node == NULL)
+		return;
+	printInorder(node->left);
+	printf("%d ", node->data);
+	printInorder(node->right);
+	
+
+}
+
+int main ()
+{   
+    int t,n;
+   scanf("%d",&t);
+    while(t--){
+        scanf("%d",&n);
+        int post[n];
+        for(int i=0;i<n;i++)
+        scanf("%d",&post[i]);
+
+    Node* root = constructTree(post, n);
+
+	printInorder(root);
+    printf("\n");
+}
+	return 0;
+}
+
+// } Driver Code Ends
+
+
+/*struct Node
+{
+	int data;
+	Node *left, *right;
+};*/
+
+
+Node* constructTreeUtil(int post[], int* postIndex, int key, int min, int max, int size) {
+    // Base case
+    if (*postIndex < 0) {
+        return NULL;
+    }
+
+    Node* root = NULL;
+
+    // If the current element of post[] is in the range between min and max, it is part of the current subtree
+    if (key > min && key < max) {
+        root = new Node(key);
+        *postIndex = *postIndex - 1;
+
+        if (*postIndex >= 0) {
+            // Recur for the right subtree
+            root->right = constructTreeUtil(post, postIndex, post[*postIndex], key, max, size);
+            // Recur for the left subtree
+            root->left = constructTreeUtil(post, postIndex, post[*postIndex], min, key, size);
+        }
+    }
+
+    return root;
+}
+
+// Main function to construct BST from post-order traversal
+Node* constructTree(int post[], int size) {
+    int postIndex = size - 1;
+    return constructTreeUtil(post, &postIndex, post[postIndex], INT_MIN, INT_MAX, size);
+}
