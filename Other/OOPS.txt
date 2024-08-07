@@ -11,6 +11,7 @@ procedural programming:
 Object oriented programming:
 	it contains state and methods. State is a property or variable and methods perform operations on these variables.
 
+classes and objects (Mimic real world entities)
 class:
 	class contains the states(properties) and methods(behaviours).
 	class is a template or blueprint.
@@ -32,7 +33,7 @@ constructor:
 	this keyword:
 		it is used to refer the current object or instance
 
-encapsulation:
+encapsulation: (Data security)
 	A process by which the data and the code that acts upon the data(methods) are integrated as a single unit.
 	It protects the data and methods from unauthorized access and modification. It also provides controlled access.
 	access modifiers:
@@ -41,9 +42,34 @@ encapsulation:
 		protected
 		default
 
-inheritance:
+inheritance: (maintain hierarchy and scale)
 	A process in which an object acquires all the states and behaviours from a parent object.
 	It improves code reusability.
 	super keyword:
 		it is a reference variable which is used to refer immediate parent class object
 		super keyword is required only when the parent class variable/method has the same name, otherwise the name can be used to 		directly accessed
+
+when the reference of the parent class points to the object of the child class it is known as upcasting.
+
+static variables and methods are tied to the class and not to the object.
+static variables and methods can be accessed even without an object reference.
+when multiple objects are created static variables provide a common value to all these objects.
+
+polymorphism: (re-use and change behaviour)
+	The ability of a single function, method, or operator to perform different tasks based on the type of input or the object it 	operates on.
+	types 
+		run time
+			method overriding
+		compile time
+			operator overloading
+			method overloading
+		
+		method overloading: (also known as starting binding)
+			to provide consistency
+			It is compile time because, during compile time itself the compiler will decide the method that should be called.
+
+		method overriding: (also known as late binding)
+			a childclass overrides a method with the same signature as that of it in its parent class.
+			inheritance in mandatory
+			both the child and the parent should have the same method names and same number of parameters.
+			not possible to override private methods and static methods
