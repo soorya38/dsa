@@ -1,0 +1,34 @@
+SQL
+	-DQL (get info already stored)
+	-DDL (defining database schemas)
+	-DCL (controlling a access to the data stored in the database)
+	-DML (insert, delete, update data in the db)
+
+types of data stored in sql:
+	-int
+	-decimal
+	-varchar
+	-blob
+	-date
+	-timestamp
+
+DDL commands to create, alter and delete a table:
+	-create CREATE TABLE table_name (column1 data_type, column2 data_type, ...);
+	-drop DROP TABLE table_name;
+	-alter ALTER TABLE table_name ADD COLUMN column_name data_type;
+	-truncate TRUNCATE TABLE table_name;
+	-rename RENAME TABLE old_table_name TO new_table_name;
+	-comment
+	-KEYWORDS:
+		-primary key (defines the primary key)
+		-foreign key
+		CONSTRAINTS:
+			-default (when a field is left not entered a default value will be provided)
+			-unique (makes sure that the specified column does not contain any duplicate keys)
+			-not null (makes sure that the specified column is not null)
+			-auto_increment (the value is incremented automatically)
+
+DML commands to insert, delete and update data in the table:
+	-insert INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...);
+	-update UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
+	-delete DELETE FROM table_name WHERE condition;

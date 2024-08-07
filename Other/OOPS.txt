@@ -1,16 +1,49 @@
-classes -> states(properties) + methods(set and alter the states) = blueprints(templates of objects)
-    ->this keyword is used for getting the instance with respect to the class
-    constructors: 
-        -> default
-        -> parameters
-        -> copy constructor
-        -> parameters less
+why OOPS?
+	mimics real world entities.
+	data security.
+	re-use modularity.
+	hide complex implementations.
+	make code scalable.
 
-objects -> instances of classes
+procedural programming:
+	contain functions, they take values and perform operations on them.
 
-encapsulation -> combining data and methods using them as a single unit + protecting data from unauthorised access and modification
-    -> using access modifiers to protect data
-        ->private
-        ->public
-        ->protected
-    -> providing constrains while setting values using the setter method
+Object oriented programming:
+	it contains state and methods. State is a property or variable and methods perform operations on these variables.
+
+class:
+	class contains the states(properties) and methods(behaviours).
+	class is a template or blueprint.
+object:
+	object is an instance of a class.
+
+constructor:
+	constructor is a method.
+	constructor is used to initialize an object with default values.
+	constructor name is the same as class name.
+	constructor method does not have a return type.
+	types:
+		default
+		parameterised
+		copy constructor
+		static constructor
+		chain constructor
+
+	this keyword:
+		it is used to refer the current object or instance
+
+encapsulation:
+	A process by which the data and the code that acts upon the data(methods) are integrated as a single unit.
+	It protects the data and methods from unauthorized access and modification. It also provides controlled access.
+	access modifiers:
+		private
+		public
+		protected
+		default
+
+inheritance:
+	A process in which an object acquires all the states and behaviours from a parent object.
+	It improves code reusability.
+	super keyword:
+		it is a reference variable which is used to refer immediate parent class object
+		super keyword is required only when the parent class variable/method has the same name, otherwise the name can be used to 		directly accessed

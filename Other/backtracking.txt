@@ -1,0 +1,16 @@
+backtracking questions:
+	-is a solution possible
+	-best solution
+	-all posibile solutions
+
+backtracking templates:
+	-generate
+	-partition
+	-is solution possible
+
+template:
+	//base case
+		//code
+	//backtrack call
+		//code
+	//final return
