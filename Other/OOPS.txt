@@ -69,7 +69,17 @@ polymorphism: (re-use and change behaviour)
 			It is compile time because, during compile time itself the compiler will decide the method that should be called.
 
 		method overriding: (also known as late binding)
-			a childclass overrides a method with the same signature as that of it in its parent class.
+			a child class overrides a method with the same signature as that of it in its parent class.
 			inheritance in mandatory
 			both the child and the parent should have the same method names and same number of parameters.
 			not possible to override private methods and static methods
+
+final keyword makes sure that the method cannot be overridden.
+
+abstraction: (hide complex implementations)
+	Hiding complex implementation detail and showing only the essential information to the user.
+	abstract class cannot have objects or instantiated. A child class with all the implementations of the abstract methods of an abstract class can have an object.
+
+INTERFACE:
+	Interface helps with abstraction. All methods have to be abstract. keyword = interface.	To create a child implements should be 	used.
+	
