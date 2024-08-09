@@ -1,0 +1,63 @@
+COMPUTER NETWORK:
+A computer network is a system that connects many independent computers to share information (data) and resources. The integration of computers and other different devices allows users to communicate more easily.
+
+COMPONENTS OF A COMPUTER NETWORK:
+	-> nodes (devies)
+	-> links (connections)
+	-> ports (starting and ending points used for communication between devices in a network)
+	-> protocols (a set of rules that defines how the data should be sent and received across the internet)
+	
+NETWORK DEVICES (also known as components):
+	-> NIC (Network Interface Card):
+		Enables computers to communicate via a network. It offers physical access to networking media and, in many cases, MAC addresses serve as a low-level addressing scheme. Each network interface card has a distinct identifier. This is stored on a chip that is attached to the card.
+		Used by the data link layer to identify the address.
+		
+	-> HUB:
+		A hub connects several networked devices. They are used to link computers together in a LAN. A hub contains a lot of ports. A computer is inserted into one of these ports with the intention of joining the network. Data frames are broadcast to all other ports when they arrive at a port, regardless of whether they are headed there or not. Used by the physical layer.
+		
+	-> SWITCHES:
+		A switch is a data link layer networking device that connects the devices in a network and employs packet switching to transmit and receive data over the network. A switch has numerous ports where computers can be connected, similar to a hub. However when data frames enters any port of a network switch, it checks the destination address and transmits the frame to the appropriate deices(s). It allows both multicast and unicast.
+		
+	-> CABLES AND CONNECTORS:
+		-> Twisted pair cables
+		-> Coaxial cables.
+		-> Optical fiber cables.
+	
+	-> REPEATERS:
+		A repeater is an electrical device that receives a signal, cleans it of unwanted noise, regenerates it, and retransmits it at a higher power level or to the opposite side of an obstruction, allowing the signal to travel greater distances without degradation.
+		
+	-> ROUTER:
+		Routers connect your devices to the internet and each other by directing data where it needs to go. They manage local network addresses, assign IP addresses to devices, and provide security features like firewalls to protect against threats.
+		
+	-> MODEM:
+		A modem connects your home network to the internet by converting digital data into signals that travel over phone lines or cables. It then converts incoming signals back into digital data for your devices. Essentially, it acts as a translator between your network and your ISP.
+LINKES:
+	-> wired
+	-> wireless
+	
+PROTOCOLS:
+
+TYPES OF COMPUTER NETWORKS:
+	-> PAN (Personal Area Network)
+	-> LAN (Local Area Network)
+	-> CAN (Campus Area Network)
+	-> MAN (Metropolitan Area Network)
+	-> WAN (Wide Area Network)
+	
+	PAN: (1 - 100 mts)
+		PAN is the most basic type of computer network. It is a type of network designed to connect devices within a short range, typically around 		one person. It allows your personal devices, like smartphones, tablets, laptops, and wearables, to communicate and share data with each other. 
+	
+	LAN: (upto 2kms)
+		It is a type of computer network that links computers locally. (i, e) It joins them over a common connection line. Two or more computers joined together by a server is known as a LAN. Wifi and Ethernet are 2 technologies used in LAN.
+		
+	CAN: (1 - 5 kms)
+		Connects several local area networks within a specific geographical region. CAN is bigger than a LAN but smaller than a MAN. This is a type of computer network that is usually used in places like a school or colleges. This network covers a limited geographical area that is, it spreads across several buildings within the campus.
+		
+	MAN: (5 - 50 kms)
+		This is the type of computer network that connects computers over a geographical distance through a shared communication path over a city, town, or metropolitan area.
+	
+	WAN:
+		Any network that covers a vast geographical region and typically connects several local area networks is known as a wide area network. 
+	
+	Need to see :
+	storage area networks and system area networks
