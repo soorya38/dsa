@@ -1,0 +1,63 @@
+1980. Find Unique Binary String
+Solved
+Medium
+Topics
+Companies
+Hint
+Given an array of strings nums containing n unique binary strings each of length n, return a binary string of length n that does not appear in nums. If there are multiple answers, you may return any of them.
+
+ 
+
+Example 1:
+
+Input: nums = ["01","10"]
+Output: "11"
+Explanation: "11" does not appear in nums. "00" would also be correct.
+Example 2:
+
+Input: nums = ["00","01"]
+Output: "11"
+Explanation: "11" does not appear in nums. "10" would also be correct.
+Example 3:
+
+Input: nums = ["111","011","001"]
+Output: "101"
+Explanation: "101" does not appear in nums. "000", "010", "100", and "110" would also be correct.
+ 
+
+Constraints:
+
+n == nums.length
+1 <= n <= 16
+nums[i].length == n
+nums[i] is either '0' or '1'.
+All the strings of nums are unique.
+
+solution: 
+
+class Solution {
+public:
+    string fin = "";
+
+    void func(int n, int c, set<string> &ans, vector<char> &sen) {
+        if(c == n) {
+            string s(sen.begin(), sen.end()); 
+            if(ans.find(s) == ans.end())
+                fin = s; 
+            return;
+        }
+
+        sen[c] = '0';
+        func(n, c + 1, ans, sen);
+        
+        sen[c] = '1';
+        func(n, c + 1, ans, sen);
+    }
+
+    string findDifferentBinaryString(vector<string>& nums) {
+        set<string> ans(nums.begin(), nums.end()); 
+        vector<char> sen(nums.size(), '0');  
+        func(nums.size(), 0, ans, sen);
+        return fin;
+    }
+};

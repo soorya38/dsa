@@ -1,0 +1,56 @@
+Padovan Sequence
+Difficulty: EasyAccuracy: 34.96%Submissions: 62K+Points: 2
+Given a number n, find the nth number in the Padovan Sequence.
+
+A Padovan Sequence is a sequence which is represented by the following recurrence relation
+P(n) = P(n-2) + P(n-3)
+P(0) = P(1) = P(2) = 1
+
+Note: Since the output may be too large, compute the answer modulo 10^9+7.
+
+Examples :
+
+Input: n = 3
+Output: 2
+Explanation: We already know, P1 + P0 = P3 and P1 = 1 and P0 = 1
+Input: n = 4
+Output: 2
+Explanation: We already know, P4  = P2 + P1 and P2 = 1 and P1 = 1
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(1)
+
+Constraints:
+1 <= n <= 106
+
+solution :
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+
+class Solution {
+  public:
+    int padovanSequence(int n) {
+        // code here.
+        vector<int> nums(n+1, 0);
+        nums[0] = nums[1] = nums[2] = 1;
+        for(int i=3; i<=n; i++)
+            nums[i] = (nums[i-2] + nums[i-3]) % 1000000007;
+        return nums[n];
+    }
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        Solution ob;
+        cout << ob.padovanSequence(n) << endl;
+    }
+    return 0;
+}
