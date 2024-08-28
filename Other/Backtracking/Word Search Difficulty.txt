@@ -1,0 +1,109 @@
+Word Search
+Difficulty: MediumAccuracy: 32.69%Submissions: 50K+Points: 4
+
+Given a 2D board of letters and a word. Check if the word exists in the board. The word can be constructed from letters of adjacent cells only. ie - horizontal or vertical neighbors. The same letter cell can not be used more than once.
+
+Example 1:
+
+Input: board = {{a,g,b,c},{q,e,e,l},{g,b,k,s}},
+word = "geeks"
+Output: 1
+Explanation: The board is-
+a g b c
+q e e l
+g b k s
+The letters which are used to make the
+"geeks" are colored.
+
+Example 2:
+
+Input: board = {{a,b,c,e},{s,f,c,s},{a,d,e,e}},
+word = "sabfs"
+Output: 0
+Explanation: The board is-
+a b c e
+s f c s
+a d e e
+Same letter can not be used twice hence ans is 0
+
+Your Task:
+You don't need to read or print anything. Your task is to complete the function isWordExist() which takes board and word as input parameter and returns boolean value true if word can be found otherwise returns false.
+
+Expected Time Complexity: O(N * M * 4L) where N = No. of rows in board, M = No. of columns in board, L = Length of word
+Expected Space Compelxity: O(L), L is length of word.
+
+Constraints:
+1 ≤ N, M ≤ 100
+1 ≤ L ≤ N*M
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+public:
+
+    bool func(vector<vector<char>> &nums, int x, int y, int c, string &word, vector<vector<int>> &sol, string &sen) {
+        if(x<0 || y<0 || x>=nums.size() || y>=nums[0].size() || sol[x][y] == 1)
+            return false;
+        
+        if(sen == word) 
+            return true;
+        
+        if(nums[x][y] == word[c]) {
+            sol[x][y] = 1;
+            sen += nums[x][y];
+            if(func(nums, x+1, y, c+1, word, sol, sen) ||
+            func(nums, x, y+1, c+1, word, sol, sen) ||
+            func(nums, x-1, y, c+1, word, sol, sen) ||
+            func(nums, x, y-1, c+1, word, sol, sen))
+                return true;
+            sol[x][y] = 0;
+            sen.pop_back();
+        }
+        return false;
+    }
+
+    bool isWordExist(vector<vector<char>>& board, string word) {
+        // Code here
+        vector<vector<int>> sol(board.size(), vector<int>(board[0].size(), 0));
+        string sen = "";
+        for(int i=0; i<board.size(); i++) {
+            for(int j=0; j<board[i].size(); j++)
+            {
+                if(board[i][j] == word[0])
+                {
+                    if(func(board, i, j, 0, word, sol, sen))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n, m;
+		cin >> n >> m;
+		vector<vector<char>>board(n, vector<char>(m, '*'));
+		for(int i = 0; i < n; i++)
+			for(int j = 0; j < m; j++)
+				cin >> board[i][j];
+		string word;
+		cin >> word;
+		Solution obj;
+		bool ans = obj.isWordExist(board, word);
+		if(ans)
+			cout << "1\n";
+		else cout << "0\n";
+	}
+	return 0;
+}
+// } Driver Code Ends

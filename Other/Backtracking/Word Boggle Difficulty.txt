@@ -1,0 +1,161 @@
+Word Boggle
+Difficulty: MediumAccuracy: 15.85%Submissions: 84K+Points: 4
+
+Given a dictionary of distinct words and an M x N board where every cell has one character. Find all possible words from the dictionary that can be formed by a sequence of adjacent characters on the board. We can move to any of 8 adjacent characters
+
+Note: While forming a word we can move to any of the 8 adjacent cells. A cell can be used only once in one word.
+
+
+Example 1:
+
+Input: 
+N = 1
+dictionary = {"CAT"}
+R = 3, C = 3
+board = {{C,A,P},{A,N,D},{T,I,E}}
+Output:
+CAT
+Explanation: 
+C A P
+A N D
+T I E
+Words we got is denoted using same color.
+
+Example 2:
+
+Input:
+N = 4
+dictionary = {"GEEKS","FOR","QUIZ","GO"}
+R = 3, C = 3 
+board = {{G,I,Z},{U,E,K},{Q,S,E}}
+Output:
+GEEKS QUIZ
+Explanation: 
+G I Z
+U E K
+Q S E 
+Words we got is denoted using same color.
+
+
+Your task:
+You dont need to read input or print anything. Your task is to complete the function wordBoggle() which takes the dictionary contaning N space-separated strings and R*C board as input parameters and returns a list of words that exist on the board in lexicographical order.
+
+
+Expected Time Complexity: O(N*W + R*C^2)
+Expected Auxiliary Space: O(N*W + R*C)
+
+
+Constraints:
+1 ≤ N ≤ 15
+1 ≤ R, C ≤ 50
+1 ≤ length of Word ≤ 60
+Each word can consist of both lowercase and uppercase letters.
+
+
+solution :
+
+//{ Driver Code Starts
+// Initial template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+public:
+    
+
+    bool func(const vector<vector<char>>& nums, int x, int y, int c, vector<vector<bool>>& sol, const string& word, string& sen) {
+    // Check boundaries and if the cell is already visited or does not match the current character
+        if (x < 0 || y < 0 || x >= nums.size() || y >= nums[0].size() || sol[x][y] || nums[x][y] != word[c]) {
+            return false;
+        }
+    
+        // If the current character matches and it's the last character of the word
+        if (c == word.size() - 1) {
+            sen.push_back(nums[x][y]);
+            bool found = (sen == word);
+            sen.pop_back();  // Backtrack
+            return found;
+        }
+    
+        // Mark the cell as visited
+        sol[x][y] = true;
+        sen.push_back(nums[x][y]);
+    
+        // Explore all 8 possible directions
+        bool found = func(nums, x + 1, y, c + 1, sol, word, sen) ||
+                     func(nums, x - 1, y, c + 1, sol, word, sen) ||
+                     func(nums, x, y + 1, c + 1, sol, word, sen) ||
+                     func(nums, x, y - 1, c + 1, sol, word, sen) ||
+                     func(nums, x + 1, y + 1, c + 1, sol, word, sen) ||
+                     func(nums, x - 1, y - 1, c + 1, sol, word, sen) ||
+                     func(nums, x + 1, y - 1, c + 1, sol, word, sen) ||
+                     func(nums, x - 1, y + 1, c + 1, sol, word, sen);
+    
+        // Backtrack
+        sol[x][y] = false;
+        sen.pop_back();
+    
+        return found;
+    }
+    
+    // Function to find all words in the boggle board
+    vector<string> wordBoggle(const vector<vector<char>>& words, const vector<string>& nums) {
+        vector<vector<bool>> sol(words.size(), vector<bool>(words[0].size(), false));
+        vector<string> ans;
+    
+        for (const string& word : nums) {
+            string sen;
+            bool found = false;
+            for (int i = 0; i < words.size() && !found; ++i) {
+                for (int j = 0; j < words[0].size(); ++j) {
+                    if (words[i][j] == word[0] && func(words, i, j, 0, sol, word, sen)) {
+                        ans.push_back(word);
+                        found = true;  // No need to check further for this word
+                        break;
+                    }
+                }
+            }
+        }
+    
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        cin >> N;
+        vector<string> dictionary;
+        for (int i = 0; i < N; ++i) {
+            string s;
+            cin >> s;
+            dictionary.push_back(s);
+        }
+        
+        int R, C;
+        cin >> R >> C;
+        vector<vector<char> > board(R);
+        for (int i = 0; i < R; i++) {
+            board[i].resize(C);
+            for (int j = 0; j < C; j++) cin >> board[i][j];
+        }
+        Solution obj;
+        vector<string> output = obj.wordBoggle(board, dictionary);
+        if (output.size() == 0)
+            cout << "-1";
+        else {
+            sort(output.begin(), output.end());
+            for (int i = 0; i < output.size(); i++) cout << output[i] << " ";
+        }
+        cout << endl;
+    }
+}
+
+// } Driver Code Ends
