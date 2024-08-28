@@ -1,0 +1,57 @@
+784. Letter Case Permutation
+
+Given a string s, you can transform every letter individually to be lowercase or uppercase to create another string.
+
+Return a list of all possible strings we could create. Return the output in any order.
+
+ 
+
+Example 1:
+
+Input: s = "a1b2"
+Output: ["a1b2","a1B2","A1b2","A1B2"]
+
+Example 2:
+
+Input: s = "3z4"
+Output: ["3z4","3Z4"]
+
+ 
+
+Constraints:
+
+    1 <= s.length <= 12
+    s consists of lowercase English letters, uppercase English letters, and digits.
+
+
+solution :
+
+class Solution {
+public:
+
+    void func(string sen, int c, set<string> &temp) {
+        if (c == sen.size()) {
+            temp.insert(sen);
+            return;
+        }
+
+        func(sen, c+1, temp);
+
+        if (isalpha(sen[c])) {
+            sen[c] = tolower(sen[c]);
+            func(sen, c + 1, temp);
+
+            sen[c] = toupper(sen[c]);
+            func(sen, c+1, temp);
+        }
+    }
+
+    vector<string> letterCasePermutation(string s) {
+        set<string> temp;
+        vector<string> ans;
+        func(s, 0, temp);
+        for(auto i: temp)
+            ans.push_back(i);
+        return ans;
+    }
+};
