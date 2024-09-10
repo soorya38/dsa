@@ -1,0 +1,7 @@
+IAM steps:
+	provide name
+	
+incoming traffic : inbound
+outgoing traffic : outbound
+firewall : security groups
+

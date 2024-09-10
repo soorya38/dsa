@@ -1,0 +1,98 @@
+994. Rotting Oranges
+Solved
+Medium
+Topics
+Companies
+
+You are given an m x n grid where each cell can have one of three values:
+
+    0 representing an empty cell,
+    1 representing a fresh orange, or
+    2 representing a rotten orange.
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+ 
+
+Example 1:
+
+Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+
+Example 2:
+
+Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation: The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+
+Example 3:
+
+Input: grid = [[0,2]]
+Output: 0
+Explanation: Since there are already no fresh oranges at minute 0, the answer is just 0.
+
+ 
+
+Constraints:
+
+    m == grid.length
+    n == grid[i].length
+    1 <= m, n <= 10
+    grid[i][j] is 0, 1, or 2.
+
+solution :
+
+class Solution {
+public:
+    int func(vector<vector<int>> &nums) {
+        int max = 0;
+        vector<int> s = {-1, 0, 1, 0};
+        vector<int> s1 = {0, 1, 0, -1};
+        
+        queue<pair<vector<int>, int>> q;
+        set<vector<int>> visited;
+        
+        for(int i=0; i<nums.size(); i++)
+            for(int j=0; j<nums[0].size(); j++)
+                if(nums[i][j] == 2)
+                    q.push({{i, j}, 0});
+        
+        while(q.size() > 0)
+        {
+            vector<int> n = q.front().first;
+            int row = n[0];
+            int col = n[1];
+            int l = q.front().second;
+            q.pop();
+            
+            
+            if(visited.find({row, col}) != visited.end())
+                continue;
+            if(l > max)
+                max = l;
+            
+            visited.insert({row, col});
+            for(int i=0; i<s.size(); i++)
+            {
+                int r = s[i]+row;
+                int c = s1[i]+col;
+                if(r>=0 && c>=0 && c<nums[0].size() && r<nums.size() && nums[r][c] == 1) {
+                    q.push({{r, c}, l+1});
+                    nums[r][c] = 2;
+                }
+            }
+        }
+        return max;
+    }
+
+    int orangesRotting(vector<vector<int>>& nums) {
+        int v = func(nums);
+        for(int i=0; i<nums.size(); i++)
+            for(int j=0; j<nums[0].size(); j++)
+                if(nums[i][j] == 1)
+                    return -1;
+        return v;
+    }
+};

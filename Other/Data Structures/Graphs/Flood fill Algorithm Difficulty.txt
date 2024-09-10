@@ -1,0 +1,97 @@
+Flood fill Algorithm
+Difficulty: MediumAccuracy: 41.11%Submissions: 118K+Points: 4
+
+An image is represented by a 2-D array of integers, each integer representing the pixel value of the image.
+
+Given a coordinate (sr, sc) representing the starting pixel (row and column) of the flood fill, and a pixel value newColor, "flood fill" the image.
+
+To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color as the starting pixel), and so on. Replace the color of all of the aforementioned pixels with the newColor.
+
+Examples:
+
+Input: image = {{1,1,1},{1,1,0},{1,0,1}},
+sr = 1, sc = 1, newColor = 2.
+Output: {{2,2,2},{2,2,0},{2,0,1}}
+Explanation: From the center of the image (with position (sr, sc) = (1, 1)), all pixels connected by a path of the same color as the starting pixel are colored with the new color.Note the bottom corner is not colored 2, because it is not 4-directionally connected to the starting pixel.
+ 
+
+Expected Time Compelxity: O(n*m)
+Expected Space Complexity: O(n*m)
+ 
+Constraints:
+1 <= n <= m <= 100
+0 <= pixel values <= 10
+0 <= sr <= (n-1)
+0 <= sc <= (m-1)
+
+solution :
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+public:
+    void bfs(vector<vector<int>> &nums, int ir, int jc, int newColor) {
+        queue<vector<int>> q;
+        set<vector<int>> vis;
+        int iniColor = nums[ir][jc];
+        
+        vector<int> s = {-1, 0, 1, 0};
+        vector<int> s1 = {0, 1, 0, -1};
+        
+        q.push({ir, jc});
+        while(q.size() > 0) {
+            vector<int> n = q.front();
+            int row = n[0];
+            int col = n[1];
+            q.pop();
+            
+            if(vis.find(n) != vis.end())
+                continue;
+            
+            vis.insert(n);
+            if(nums[row][col] == iniColor)
+            nums[row][col] = newColor;
+            
+            for(int i=0; i<s.size(); i++) {
+                int r = row + s[i];
+                int c = col + s1[i];
+                if(r>=0 && c>=0 && r<nums.size() && c<nums[0].size() && nums[r][c] == iniColor)
+                    q.push({r, c});
+            }
+        }
+    }
+
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        bfs(image, sr, sc, newColor);
+        return image;
+    }
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n, m;
+		cin >> n >> m;
+		vector<vector<int>>image(n, vector<int>(m,0));
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j++)
+				cin >> image[i][j];
+		}
+		int sr, sc, newColor;
+		cin >> sr >> sc >> newColor;
+		Solution obj;
+		vector<vector<int>> ans = obj.floodFill(image, sr, sc, newColor);
+		for(auto i: ans){
+			for(auto j: i)
+				cout << j << " ";
+			cout << "\n";
+		}
+	}
+	return 0;
+}
+// } Driver Code Ends
